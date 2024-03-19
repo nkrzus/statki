@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\nkrzu\\source\\repos\\Statki\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{40838AA8-9C0C-4E02-B2B0-F98A35EBA4E8}|Statki\\Statki.vcxproj|C:\\Users\\nkrzu\\source\\repos\\Statki\\Statki\\Statki.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{40838AA8-9C0C-4E02-B2B0-F98A35EBA4E8}|Statki\\Statki.vcxproj|solutionrelative:Statki\\Statki.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Statki.cpp",
+              "DocumentMoniker": "C:\\Users\\nkrzu\\source\\repos\\Statki\\Statki\\Statki.cpp",
+              "RelativeDocumentMoniker": "Statki\\Statki.cpp",
+              "ToolTip": "C:\\Users\\nkrzu\\source\\repos\\Statki\\Statki\\Statki.cpp",
+              "RelativeToolTip": "Statki\\Statki.cpp",
+              "ViewState": "AQIAAH0AAAAAAAAAAAAiwIIAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-18T18:04:59.15Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
