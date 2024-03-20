@@ -2,13 +2,14 @@
 #include <iostream>
 #include <cctype>
 #include <string>
+#include <windows.h>
 using namespace std;
 
 class Shot {
 public:
 
 	char strColumns;
-	char strRows;
+	char strRows = '0';
 	int columns;
 	int rows;
 
@@ -29,7 +30,7 @@ public:
 		}
 		else if (toValid.length() == 3) {
 			this->strColumns = toValid[0];
-			this->strRows = toValid[1] + toValid[2];
+			this->rows = 0;
 		}
 		else {
 			cout << "Podales niepoprawna lokalizacje. Sprobuj jeszcze raz\n";
@@ -78,7 +79,7 @@ public:
 			break;
 		case '9': rows = 8;
 			break;
-		case '10': rows = 9;
+		case '0': rows = 9;
 			break;
 		}
 	}
@@ -125,47 +126,102 @@ public:
 	}
 
 	void updateBoard(Shot x) {
-		this->board[x.columns][x.rows] = 'X';
-		if (x.columns > 0 && x.columns < 9 && x.rows>0 && x.rows < 9) {
-			this->board[x.columns - 1][x.rows - 1] = '.';
-			this->board[x.columns + 1][x.rows - 1] = '.';
-			this->board[x.columns - 1][x.rows + 1] = '.';
-			this->board[x.columns + 1][x.rows + 1] = '.';
+
+		if (this->board[x.rows][x.columns] == 'X' || this->board[x.rows][x.columns] == '.') {
+			cout << "W tym miejscu nie mo¿esz postawic statku. Sprobuj ponownie.\n";
 		}
-		else if (x.columns == 0 && x.rows == 0) {
-			this->board[x.columns + 1][x.rows + 1] = '.';
-		}
-		else if (x.columns == 0 && x.rows == 9) {
-			this->board[x.columns + 1][x.rows - 1] = '.';
-		}
-		else if (x.columns == 9 && x.rows == 0) {
-			this->board[x.columns - 1][x.rows + 1] = '.';
-		}
-		else if (x.columns == 9 && x.rows == 9) {
-			this->board[x.columns - 1][x.rows - 1] = '.';
-		}
-		else if (x.columns == 0 && (x.rows < 9 && x.rows>0)) {
-			this->board[x.columns + 1][x.rows + 1] = '.';
-			this->board[x.columns + 1][x.rows - 1] = '.';
-		}
-		else if (x.rows == 0 && (x.columns < 9 && x.columns>0)) {
-			this->board[x.columns - 1][x.rows + 1] = '.';
-			this->board[x.columns + 1][x.rows + 1] = '.';
-		}
-		else if (x.columns == 0 && (x.rows < 9 && x.rows>0)) {
-			this->board[x.columns - 1][x.rows + 1] = '.';
-			this->board[x.columns - 1][x.rows - 1] = '.';
-		}
-		else if (x.rows == 9 && (x.columns < 9 && x.columns>0)) {
-			this->board[x.columns - 1][x.rows - 1] = '.';
-			this->board[x.columns + 1][x.rows - 1] = '.';
+		else {
+
+			this->board[x.rows][x.columns] = 'X';
+			if (x.rows > 0 && x.rows < 9 && x.columns>0 && x.columns < 9) {
+				this->board[x.rows - 1][x.columns - 1] = '.';
+				this->board[x.rows + 1][x.columns - 1] = '.';
+				this->board[x.rows - 1][x.columns + 1] = '.';
+				this->board[x.rows + 1][x.columns + 1] = '.';
+			}
+			else if (x.rows == 0 && x.columns == 0) {
+				this->board[x.rows + 1][x.columns + 1] = '.';
+			}
+			else if (x.rows == 0 && x.columns == 9) {
+				this->board[x.rows + 1][x.columns - 1] = '.';
+			}
+			else if (x.rows == 9 && x.columns == 0) {
+				this->board[x.rows - 1][x.columns + 1] = '.';
+			}
+			else if (x.rows == 9 && x.columns == 9) {
+				this->board[x.rows - 1][x.columns - 1] = '.';
+			}
+			else if (x.rows == 0 && (x.columns < 9 && x.columns>0)) {
+				this->board[x.rows + 1][x.columns + 1] = '.';
+				this->board[x.rows + 1][x.columns - 1] = '.';
+			}
+			else if (x.columns == 0 && (x.rows < 9 && x.rows>0)) {
+				this->board[x.rows - 1][x.columns + 1] = '.';
+				this->board[x.rows + 1][x.columns + 1] = '.';
+			}
+			else if (x.rows == 9 && (x.columns < 9 && x.columns>0)) {
+				this->board[x.rows - 1][x.columns + 1] = '.';
+				this->board[x.rows - 1][x.columns - 1] = '.';
+			}
+			else if (x.columns == 9 && (x.rows < 9 && x.rows>0)) {
+				this->board[x.rows - 1][x.columns - 1] = '.';
+				this->board[x.rows + 1][x.columns - 1] = '.';
+			}
 		}
 	}
+	void insertShips(Board playerBoard) {
+		unsigned int singleMastedShip = 4;
+		unsigned int twoMastedShip = 3;
+		unsigned int threeMastedShip = 2;
+		unsigned int foursMastedShip = 1;
+		unsigned int choise = 0;
 
-	//void ifFieldIsValid(Point x) {
-	//	if (Point x) {}
-	//}
+		cout << "\nRozmiesc swoje statki.\n\n";
 
+		do
+		{
+			cout << "Pozosta³o do ustawienia: \n" << singleMastedShip << " - jednomasztowce,\n" << twoMastedShip << " - dwumasztowce,\n" << threeMastedShip << " - trzymasztowce,\n" << foursMastedShip << " - czteromasztowiec\n";
+			cout << "Wpisz co chcesz najpierw obsadziæ: 1 - jednomasztowiec, 2 - dwumasztowiec, 3 - trzymasztowiec, 4 - czteromasztowiec.\n";
+			cin >> choise;
+
+			if (choise == 1 && singleMastedShip > 0) {
+
+				for (int i = 0; i < 4; i++) {
+					cout << "\nPodaj lokalizacje " << i+1 << " jednomasztowca.\n";
+					string shot;
+					cin >> shot;
+					Shot first(shot);
+
+
+					playerBoard.updateBoard(first);
+
+					playerBoard.displayBoard();
+					
+					singleMastedShip = singleMastedShip - 1;
+				}
+				cout << "Dodales wszystkie jednomasztowce. \n";
+				cout << "Pozosta³o do ustawienia: \n" << singleMastedShip << " - jednomasztowce,\n" << twoMastedShip << " - dwumasztowce,\n" << threeMastedShip << " - trzymasztowce,\n" << foursMastedShip << " - czteromasztowiec\n";
+
+				//tu kod jak dodawac 1 masztowiec
+			}
+			else if (choise == 2 && twoMastedShip > 0) {
+				//tu kod jak dodawac 2 masztowiec
+
+			}
+			else if (choise == 3 && threeMastedShip > 0) {
+				//tu kod jak dodawac 3 masztowiec
+
+			}
+			else if (choise == 4 && foursMastedShip > 0) {
+				//tu kod jak dodawac 4 masztowiec
+
+			}
+		} while (singleMastedShip == 0 && twoMastedShip == 0 && threeMastedShip == 0 && foursMastedShip == 0);
+
+
+
+
+	}
 };
 
 int main()
@@ -186,21 +242,19 @@ int main()
 
 	tablicaPlayera.displayBoard();
 
-	cout << "\n Rozmiesc swoje statki.\n ";
+	tablicaPlayera.insertShips(tablicaPlayera);
 
-	cout << "Najpierw 1 masztowiec, wybierz pole na ktorym ma sie znalezc.\n Lokalizacje zapisz w formacie np. A4\n";
-
-
-	string shot;
+	/*string shot;
 	cin >> shot;
 
 	Shot first(shot);
 
-	cout << "Wpisales: " << first.columns << " " << first.rows << endl;
 
 	tablicaPlayera.updateBoard(first);
 
 	tablicaPlayera.displayBoard();
+
+
 	cout << "Kolejny 1 masztowiec, wybierz pole na ktorym ma sie znalezc.\n Lokalizacje zapisz w formacie np. A4\n";
 
 	string shot2;
@@ -208,12 +262,11 @@ int main()
 
 	Shot first2(shot2);
 
-	cout << "Wpisales: " << first2.columns << " " << first2.rows << endl;
 
 	tablicaPlayera.updateBoard(first2);
 
 	tablicaPlayera.displayBoard();
-
+	*/
 
 
 }
