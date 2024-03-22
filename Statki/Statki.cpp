@@ -128,46 +128,131 @@ public:
 	void updateBoard(Shot x) {
 
 		if (this->board[x.rows][x.columns] == 'X' || this->board[x.rows][x.columns] == '.') {
-			cout << "W tym miejscu nie mo¿esz postawic statku. Sprobuj ponownie.\n";
+			cout << "To miejsce jest juz zajete. Sprobuj ponownie.\n";
+
 		}
 		else {
-
 			this->board[x.rows][x.columns] = 'X';
-			if (x.rows > 0 && x.rows < 9 && x.columns>0 && x.columns < 9) {
-				this->board[x.rows - 1][x.columns - 1] = '.';
-				this->board[x.rows + 1][x.columns - 1] = '.';
-				this->board[x.rows - 1][x.columns + 1] = '.';
-				this->board[x.rows + 1][x.columns + 1] = '.';
-			}
-			else if (x.rows == 0 && x.columns == 0) {
-				this->board[x.rows + 1][x.columns + 1] = '.';
-			}
-			else if (x.rows == 0 && x.columns == 9) {
-				this->board[x.rows + 1][x.columns - 1] = '.';
-			}
-			else if (x.rows == 9 && x.columns == 0) {
-				this->board[x.rows - 1][x.columns + 1] = '.';
-			}
-			else if (x.rows == 9 && x.columns == 9) {
-				this->board[x.rows - 1][x.columns - 1] = '.';
-			}
-			else if (x.rows == 0 && (x.columns < 9 && x.columns>0)) {
-				this->board[x.rows + 1][x.columns + 1] = '.';
-				this->board[x.rows + 1][x.columns - 1] = '.';
-			}
-			else if (x.columns == 0 && (x.rows < 9 && x.rows>0)) {
-				this->board[x.rows - 1][x.columns + 1] = '.';
-				this->board[x.rows + 1][x.columns + 1] = '.';
-			}
-			else if (x.rows == 9 && (x.columns < 9 && x.columns>0)) {
-				this->board[x.rows - 1][x.columns + 1] = '.';
-				this->board[x.rows - 1][x.columns - 1] = '.';
-			}
-			else if (x.columns == 9 && (x.rows < 9 && x.rows>0)) {
-				this->board[x.rows - 1][x.columns - 1] = '.';
-				this->board[x.rows + 1][x.columns - 1] = '.';
+		}
+	}
+	void blockBusyPlace(Shot x) {
+
+		if (x.rows > 0 && x.rows < 9 && x.columns>0 && x.columns < 9) {
+			for (int i = x.rows - 1; i < x.rows + 2; i++) {
+				for (int j = x.columns - 1; j < x.columns + 2; j++) {
+					if (this->board[i][j] != 'X') {
+						this->board[i][j] = '.';
+					}
+				}
 			}
 		}
+		else if (x.rows == 0 && x.columns == 0) {
+			for (int i = x.rows; i < x.rows + 2; i++) {
+				for (int j = x.columns; j < x.columns + 2; j++) {
+					if (this->board[i][j] != 'X') {
+						this->board[i][j] = '.';
+					}
+				}
+			}
+		}
+		else if (x.rows == 9 && x.columns == 9) {
+			for (int i = x.rows - 1; i < x.rows + 1; i++) {
+				for (int j = x.columns - 1; j < x.columns + 1; j++) {
+					if (this->board[i][j] != 'X') {
+						this->board[i][j] = '.';
+					}
+				}
+			}
+		}
+		else if (x.rows == 0 && x.columns == 9) {
+			for (int i = x.rows; i < x.rows + 2; i++) {
+				for (int j = x.columns - 1; j < x.columns + 1; j++) {
+					if (this->board[i][j] != 'X') {
+						this->board[i][j] = '.';
+					}
+				}
+			}
+		}
+		else if (x.rows == 9 && x.columns == 0) {
+			for (int i = x.rows - 1; i < x.rows + 1; i++) {
+				for (int j = x.columns; j < x.columns + 2; j++) {
+					if (this->board[i][j] != 'X') {
+						this->board[i][j] = '.';
+					}
+				}
+			}
+		}
+		else if (x.rows > 0 && x.rows < 9 && x.columns == 0) {
+			for (int i = x.rows - 1; i < x.rows + 2; i++) {
+				for (int j = x.columns; j < x.columns + 2; j++) {
+					if (this->board[i][j] != 'X') {
+						this->board[i][j] = '.';
+					}
+				}
+			}
+		}
+		else if (x.rows > 0 && x.rows < 9 && x.columns == 9) {
+			for (int i = x.rows - 1; i < x.rows + 2; i++) {
+				for (int j = x.columns - 1; j < x.columns + 1; j++) {
+					if (this->board[i][j] != 'X') {
+						this->board[i][j] = '.';
+					}
+				}
+			}
+		}
+		else if (x.columns > 0 && x.columns < 9 && x.rows == 0) {
+			for (int i = x.rows; i < x.rows + 2; i++) {
+				for (int j = x.columns - 1; j < x.columns + 2; j++) {
+					if (this->board[i][j] != 'X') {
+						this->board[i][j] = '.';
+					}
+				}
+			}
+		}
+		else if (x.columns > 0 && x.columns < 9 && x.rows == 9) {
+			for (int i = x.rows - 1; i < x.rows + 1; i++) {
+				for (int j = x.columns - 1; j < x.columns + 2; j++) {
+					if (this->board[i][j] != 'X') {
+						this->board[i][j] = '.';
+					}
+				}
+			}
+		}
+
+	}
+	bool validateShot(Shot x, Board playerBoard) {
+		if (this->board[x.rows][x.columns] == 'X' || this->board[x.rows][x.columns] == '.') {
+			cout << "W tym miejscu nie mozesz postawic statku. Sprobuj ponownie.";
+			return false;
+		}
+		else {
+			cout << "Miejsce calkiem OK!\n";
+			return true;
+		}
+	}
+	void insertSingleShip(Board playerBoard) {
+
+		unsigned int singleMastedShips = 4;
+		bool validateShot;
+		do
+		{
+			cout << "\nPodaj lokalizacje jednomasztowca.\n";
+			string shot;
+			cin >> shot;
+			Shot first(shot);
+			validateShot = playerBoard.validateShot(first, playerBoard);
+
+			if (validateShot == true) {
+				playerBoard.updateBoard(first);
+				playerBoard.blockBusyPlace(first);
+				playerBoard.displayBoard();
+				singleMastedShips = singleMastedShips - 1;
+			}
+
+		} while (singleMastedShips != 0);
+
+
+
 	}
 	void insertShips(Board playerBoard) {
 		unsigned int singleMastedShip = 4;
@@ -180,29 +265,14 @@ public:
 
 		do
 		{
-			cout << "Pozosta³o do ustawienia: \n" << singleMastedShip << " - jednomasztowce,\n" << twoMastedShip << " - dwumasztowce,\n" << threeMastedShip << " - trzymasztowce,\n" << foursMastedShip << " - czteromasztowiec\n";
-			cout << "Wpisz co chcesz najpierw obsadziæ: 1 - jednomasztowiec, 2 - dwumasztowiec, 3 - trzymasztowiec, 4 - czteromasztowiec.\n";
+			cout << "Pozostalo do ustawienia: \n" << singleMastedShip << " - jednomasztowce,\n" << twoMastedShip << " - dwumasztowce,\n" << threeMastedShip << " - trzymasztowce,\n" << foursMastedShip << " - czteromasztowiec\n";
+			cout << "Wpisz co chcesz dodaC: 1 - jednomasztowiec, 2 - dwumasztowiec, 3 - trzymasztowiec, 4 - czteromasztowiec.\n";
 			cin >> choise;
 
-			if (choise == 1 && singleMastedShip > 0) {
+			if (choise == 1) {
+				playerBoard.insertSingleShip(playerBoard);
+				singleMastedShip = 0;
 
-				for (int i = 0; i < 4; i++) {
-					cout << "\nPodaj lokalizacje " << i+1 << " jednomasztowca.\n";
-					string shot;
-					cin >> shot;
-					Shot first(shot);
-
-
-					playerBoard.updateBoard(first);
-
-					playerBoard.displayBoard();
-					
-					singleMastedShip = singleMastedShip - 1;
-				}
-				cout << "Dodales wszystkie jednomasztowce. \n";
-				cout << "Pozosta³o do ustawienia: \n" << singleMastedShip << " - jednomasztowce,\n" << twoMastedShip << " - dwumasztowce,\n" << threeMastedShip << " - trzymasztowce,\n" << foursMastedShip << " - czteromasztowiec\n";
-
-				//tu kod jak dodawac 1 masztowiec
 			}
 			else if (choise == 2 && twoMastedShip > 0) {
 				//tu kod jak dodawac 2 masztowiec
@@ -269,4 +339,39 @@ int main()
 	*/
 
 
+}/*if (x.rows > 0 && x.rows < 9 && x.columns>0 && x.columns < 9) {
+	this->board[x.rows - 1][x.columns - 1] = '.';
+	this->board[x.rows + 1][x.columns - 1] = '.';
+	this->board[x.rows - 1][x.columns + 1] = '.';
+	this->board[x.rows + 1][x.columns + 1] = '.';
 }
+else if (x.rows == 0 && x.columns == 0) {
+	this->board[x.rows + 1][x.columns + 1] = '.';
+}
+else if (x.rows == 0 && x.columns == 9) {
+	this->board[x.rows + 1][x.columns - 1] = '.';
+}
+else if (x.rows == 9 && x.columns == 0) {
+	this->board[x.rows - 1][x.columns + 1] = '.';
+}
+else if (x.rows == 9 && x.columns == 9) {
+	this->board[x.rows - 1][x.columns - 1] = '.';
+}
+else if (x.rows == 0 && (x.columns < 9 && x.columns>0)) {
+	this->board[x.rows + 1][x.columns + 1] = '.';
+	this->board[x.rows + 1][x.columns - 1] = '.';
+}
+else if (x.columns == 0 && (x.rows < 9 && x.rows>0)) {
+	this->board[x.rows - 1][x.columns + 1] = '.';
+	this->board[x.rows + 1][x.columns + 1] = '.';
+}
+else if (x.rows == 9 && (x.columns < 9 && x.columns>0)) {
+	this->board[x.rows - 1][x.columns + 1] = '.';
+	this->board[x.rows - 1][x.columns - 1] = '.';
+}
+else if (x.columns == 9 && (x.rows < 9 && x.rows>0)) {
+	this->board[x.rows - 1][x.columns - 1] = '.';
+	this->board[x.rows + 1][x.columns - 1] = '.';
+}
+		}
+		*/
