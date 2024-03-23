@@ -18,5 +18,13 @@
     <ClCompile Include="Statki.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Board2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Board2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

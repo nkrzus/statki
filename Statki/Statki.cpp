@@ -117,9 +117,16 @@ public:
 	}
 
 	void displayBoard() {
+		cout << " / A B C D E F G H I J \n";
 		for (int i = 0; i < 10; i++) {
+			if (i == 9) {
+				cout << i + 1 << " ";
+			}
+			else {
+				cout << " " << i + 1 << " ";
+			};
 			for (int j = 0; j < 10; j++) {
-				cout << board[i][j] << " ";
+				cout <<board[i][j] << " ";
 			}
 			cout << endl;
 		};
@@ -135,7 +142,7 @@ public:
 			this->board[x.rows][x.columns] = 'X';
 		}
 	}
-	void blockBusyPlace(Shot x) {
+	void blockBusyPlace(Shot x) { //TA FUNKCJA MOZE SIE PRZYDAC DO TEGO JAK JA STRZELE NP A5 I TAM JEST X TO BLOKUJA SIE MIEJSCA WOKOL - TYLKO TRZEBA PRZEROBIC BY TYLKO ROGI SIE ZAZNACZALY
 
 		if (x.rows > 0 && x.rows < 9 && x.columns>0 && x.columns < 9) {
 			for (int i = x.rows - 1; i < x.rows + 2; i++) {
@@ -220,6 +227,101 @@ public:
 		}
 
 	}
+	void blockBusySpace() {
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (this->board[i][j] == 'X') {
+
+					if (i > 0 && i < 9 && j>0 && j < 9) {
+						for (int k = i - 1; k < i + 2; k++) {
+							for (int l = j - 1; l < j + 2; l++) {
+								if (this->board[k][l] != 'X') {
+									this->board[k][l] = '.';
+								}
+							}
+						}
+					}
+					else if (i == 0 && j == 0) {
+						for (int k = i; k < i + 2; k++) {
+							for (int l = j; l < j + 2; l++) {
+								if (this->board[k][l] != 'X') {
+									this->board[k][l] = '.';
+								}
+							}
+						}
+					}
+					else if (i == 9 && j == 9) {
+						for (int k = i - 1; k < i + 1; k++) {
+							for (int l = j - 1; l < j + 1; l++) {
+								if (this->board[k][l] != 'X') {
+									this->board[k][l] = '.';
+								}
+							}
+						}
+					}
+					else if (i == 0 && j == 9) {
+						for (int k = i; k < i + 2; k++) {
+							for (int l = j - 1; l < j + 1; l++) {
+								if (this->board[k][l] != 'X') {
+									this->board[k][l] = '.';
+								}
+							}
+						}
+					}
+					else if (i == 9 && j == 0) {
+						for (int k = i - 1; k < i + 1; k++) {
+							for (int l = j; l < j + 2; l++) {
+								if (this->board[k][l] != 'X') {
+									this->board[k][l] = '.';
+								}
+							}
+						}
+					}
+					else if (i > 0 && i < 9 && j == 0) {
+						for (int k = i - 1; k < i + 2; k++) {
+							for (int l = j; l < j + 2; l++) {
+								if (this->board[k][l] != 'X') {
+									this->board[k][l] = '.';
+								}
+							}
+						}
+					}
+					else if (i > 0 && i < 9 && j == 9) {
+						for (int k = i - 1; k < i + 2; k++) {
+							for (int l = j - 1; l < j + 1; l++) {
+								if (this->board[k][l] != 'X') {
+									this->board[k][l] = '.';
+								}
+							}
+						}
+					}
+					else if (j > 0 && j < 9 && i == 0) {
+						for (int k = i; k < i + 2; k++) {
+							for (int l = j - 1; l < j + 2; l++) {
+								if (this->board[k][l] != 'X') {
+									this->board[k][l] = '.';
+								}
+							}
+						}
+					}
+					else if (j > 0 && j < 9 && i == 9) {
+						for (int k = i - 1; k < i + 1; k++) {
+							for (int l = j - 1; l < j + 2; l++) {
+								if (this->board[k][l] != 'X') {
+									this->board[k][l] = '.';
+								}
+							}
+						}
+					}
+				}
+
+
+
+			}
+		}
+
+
+	}
 	bool validateShot(Shot x, Board playerBoard) {
 		if (this->board[x.rows][x.columns] == 'X' || this->board[x.rows][x.columns] == '.') {
 			cout << "W tym miejscu nie mozesz postawic statku. Sprobuj ponownie.";
@@ -230,6 +332,16 @@ public:
 			return true;
 		}
 	}
+	bool validateShotNextToShot(Shot x, Shot y) {
+		if ((x.rows == y.rows && (x.columns == y.columns - 1 || x.columns == y.columns + 1)) || (x.columns == y.columns && (x.rows == y.rows - 1 || x.rows == y.rows + 1))) {
+			return true;
+		}
+		else {
+			cout << "Nieprawidlowe miejsce!\n";
+			return false;
+		}
+
+	};
 	void insertSingleShip(Board playerBoard) {
 
 		unsigned int singleMastedShips = 4;
@@ -240,25 +352,75 @@ public:
 			string shot;
 			cin >> shot;
 			Shot first(shot);
-			validateShot = playerBoard.validateShot(first, playerBoard);
+			validateShot = this->validateShot(first, playerBoard);
 
 			if (validateShot == true) {
-				playerBoard.updateBoard(first);
-				playerBoard.blockBusyPlace(first);
-				playerBoard.displayBoard();
+				this->updateBoard(first);
+				this->blockBusySpace();
+				this->displayBoard();
 				singleMastedShips = singleMastedShips - 1;
 			}
 
 		} while (singleMastedShips != 0);
 
-
-
+		cout << "Jednomasztowce dodane.\n";
 	}
-	void insertShips(Board playerBoard) {
+	void insertDoubleShip(Board playerBoard) {
+
+		unsigned int twoMastedShips = 3;
+		bool validateShot;
+		do
+		{
+			cout << "\nPodaj lokalizacje dwumasztowca.\n";
+			unsigned int twoParts = 2;
+
+			do
+			{
+				cout << "Podaj lokalizacje 1 czesci: \n";
+				string shot;
+				cin >> shot;
+				Shot first(shot);
+				validateShot = playerBoard.validateShot(first, playerBoard);
+
+				if (validateShot == true) {
+					playerBoard.updateBoard(first);
+					playerBoard.displayBoard();
+					twoParts = twoParts - 1;
+
+					do
+					{
+						cout << "Podaj lokalizajce 2 czesci: \n";
+						string shot1;
+						cin >> shot1;
+						Shot second(shot1);
+						validateShot = playerBoard.validateShot(second, playerBoard);
+
+						bool isNextToPreviousShot;
+						isNextToPreviousShot = validateShotNextToShot(shot, shot1);
+
+						if (isNextToPreviousShot == true) {
+							playerBoard.updateBoard(second);
+							playerBoard.blockBusySpace();
+							playerBoard.displayBoard();
+							twoParts = twoParts - 1;
+
+						}
+					} while (twoParts != 0);
+				}
+			} while (twoParts != 0);
+
+			twoMastedShips = twoMastedShips - 1;
+			
+		} while (twoMastedShips != 0);
+		cout << "Dwumasztowce dodane.\n";
+	}
+
+	void insertShips(Board *playerBoard) {
 		unsigned int singleMastedShip = 4;
 		unsigned int twoMastedShip = 3;
 		unsigned int threeMastedShip = 2;
 		unsigned int foursMastedShip = 1;
+		unsigned int ship = 10;
 		unsigned int choise = 0;
 
 		cout << "\nRozmiesc swoje statki.\n\n";
@@ -270,13 +432,14 @@ public:
 			cin >> choise;
 
 			if (choise == 1) {
-				playerBoard.insertSingleShip(playerBoard);
+				this->insertSingleShip(*playerBoard);
 				singleMastedShip = 0;
-
+				ship = ship - 4;
 			}
 			else if (choise == 2 && twoMastedShip > 0) {
-				//tu kod jak dodawac 2 masztowiec
-
+				this->insertDoubleShip(*playerBoard);
+				twoMastedShip = 0;
+				ship = ship - 3;
 			}
 			else if (choise == 3 && threeMastedShip > 0) {
 				//tu kod jak dodawac 3 masztowiec
@@ -286,7 +449,7 @@ public:
 				//tu kod jak dodawac 4 masztowiec
 
 			}
-		} while (singleMastedShip == 0 && twoMastedShip == 0 && threeMastedShip == 0 && foursMastedShip == 0);
+		} while (ship!=0);
 
 
 
@@ -306,13 +469,14 @@ int main()
 	cout << "Witaj " << playerName << "!\n";
 
 	Board tablicaPlayera;
+	Board* wskTablicaPlayera=&tablicaPlayera;
 	cout << "To twoja plansza: \n";
 
 	tablicaPlayera.fillInBoard();
 
 	tablicaPlayera.displayBoard();
 
-	tablicaPlayera.insertShips(tablicaPlayera);
+	tablicaPlayera.insertShips(wskTablicaPlayera);
 
 	/*string shot;
 	cin >> shot;
