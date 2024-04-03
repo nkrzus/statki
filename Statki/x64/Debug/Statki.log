@@ -1,2 +1,3 @@
 ﻿  Statki.cpp
+C:\dev\statki\Statki\Statki.cpp(370,1): warning C4715: 'Board::validateShotsForTriplet': not all control paths return a value
   Statki.vcxproj -> C:\dev\statki\x64\Debug\Statki.exe
