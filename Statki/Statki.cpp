@@ -3,89 +3,8 @@
 #include <cctype>
 #include <string>
 #include <windows.h>
+#include "Shot.h"
 using namespace std;
-
-class Shot {
-public:
-
-	char strColumns;
-	char strRows = '0';
-	int columns;
-	int rows;
-
-	string toValid;
-
-	//napisac funkcje waliduj¹ca poprawnosc podanych wartosci shot'a
-	Shot(string UnvalidShot) : toValid(UnvalidShot) {
-		this->divideShotID();
-		this->convertShotID();
-	};
-
-
-	void divideShotID() {
-
-		if (toValid.length() == 2) {
-			this->strColumns = toValid[0];
-			this->strRows = toValid[1];
-		}
-		else if (toValid.length() == 3) {
-			this->strColumns = toValid[0];
-			this->rows = 0;
-		}
-		else {
-			cout << "Podales niepoprawna lokalizacje. Sprobuj jeszcze raz\n";
-		}
-	}
-
-	void convertShotID() {
-		switch (strColumns) {
-		case 'A': columns = 0;
-			break;
-		case 'B': columns = 1;
-			break;
-		case 'C': columns = 2;
-			break;
-		case 'D': columns = 3;
-			break;
-		case 'E': columns = 4;
-			break;
-		case 'F': columns = 5;
-			break;
-		case 'G': columns = 6;
-			break;
-		case 'H': columns = 7;
-			break;
-		case 'I': columns = 8;
-			break;
-		case 'J': columns = 9;
-			break;
-		}
-		switch (strRows) {
-		case '1': rows = 0;
-			break;
-		case '2': rows = 1;
-			break;
-		case '3': rows = 2;
-			break;
-		case '4': rows = 3;
-			break;
-		case '5': rows = 4;
-			break;
-		case '6': rows = 5;
-			break;
-		case '7': rows = 6;
-			break;
-		case '8': rows = 7;
-			break;
-		case '9': rows = 8;
-			break;
-		case '0': rows = 9;
-			break;
-		}
-	}
-
-
-};
 
 class Ship {
 private:
@@ -314,13 +233,8 @@ public:
 						}
 					}
 				}
-
-
-
 			}
 		}
-
-
 	}
 	bool validateShot(Shot x, Board playerBoard) {
 		if (this->board[x.rows][x.columns] == 'X' || this->board[x.rows][x.columns] == '.') {
@@ -370,11 +284,17 @@ public:
 	}
 
 	bool validateShotsForQuartet(Shot x, Shot y, Shot z, Shot s) {
-		if (x.rows) {
-
+		if (x.rows == y.rows && y.rows == z.rows && z.rows == s.rows) {
+			if (s.columns == x.columns + 1 || s.columns == x.columns - 1 || s.columns == y.columns + 1 || s.columns == y.columns - 1 || s.columns == z.columns + 1 || s.columns == z.columns - 1) {
+				return true;
+			}
+		};
+		if (x.columns == y.columns && y.columns == z.columns && z.columns == s.columns) {
+			if (s.rows == x.rows + 1 || s.rows == x.rows - 1 || s.rows == y.rows + 1 || s.rows == y.rows - 1 || s.rows == z.rows + 1 || s.rows == z.rows - 1) {
+				return true;
+			}
 		}
 	}
-
 
 	void insertSingleShip(Board playerBoard) {
 
@@ -520,6 +440,80 @@ public:
 		cout << "Trzymasztowce dodane.\n";
 	}
 
+	void insertFourMastedShip(Board playerBoard) {
+		unsigned int fourMastedShips = 1;
+		bool validateShot;
+
+		do
+		{
+			cout << "\nPodaj lokalizacje czteromasztowca.\n";
+			unsigned int fourParts = 4;
+
+			do
+			{
+				cout << "Podaj lokalizacje 1 czesci: \n";
+				string shot;
+				cin >> shot;
+				Shot first(shot);
+				validateShot = this->validateShot(first, playerBoard);
+
+				if (validateShot == true) {
+					this->updateBoard(first);
+					this->displayBoard();
+					fourParts = fourParts - 1;
+
+					do
+					{
+						cout << "Podaj lokalizajce 2 czesci: \n";
+						string shot1;
+						cin >> shot1;
+						Shot second(shot1);
+						validateShot = this->validateShot(second, playerBoard);
+						bool isNextToPreviousShot = this->validateShotNextToShot(shot, shot1);
+						if (validateShot == true && isNextToPreviousShot == true) {
+							this->updateBoard(second);
+							this->displayBoard();
+							fourParts = fourParts - 1;
+							do
+							{
+								cout << "Podaj lokalizajce 3 czesci: \n";
+								string shot2;
+								cin >> shot2;
+								Shot third(shot2);
+								validateShot = this->validateShot(third, playerBoard);
+								bool isNexttoPreviousTwoShots = validateShotsForTriplet(shot, shot1, shot2);
+
+								if (validateShot == true && isNexttoPreviousTwoShots == true) {
+									this->updateBoard(third);
+									this->displayBoard();
+									fourParts = fourParts - 1;
+									do
+									{
+										cout << "Podaj lokalizajce 4 czesci: \n";
+										string shot3;
+										cin >> shot3;
+										Shot four(shot3);
+										validateShot = this->validateShot(four, playerBoard);
+										bool isNexttoPreviousThreeShots = validateShotsForQuartet(shot, shot1, shot2, shot3);
+
+										if (validateShot == true && isNexttoPreviousThreeShots == true) {
+											this->updateBoard(four);
+											this->blockBusySpace();
+											this->displayBoard();
+											fourParts = fourParts - 1;
+										};
+									} while (fourParts != 0);
+								};
+							} while (fourParts != 0);
+						};
+					} while (fourParts != 0);
+				};
+			} while (fourParts != 0);
+			fourMastedShips = fourMastedShips - 1;
+			cout << "Czteromasztowiec dodany.\n";
+		} while (fourMastedShips != 0);
+	}
+
 	void insertShips(Board* playerBoard) {
 		unsigned int singleMastedShip = 4;
 		unsigned int twoMastedShip = 3;
@@ -553,11 +547,12 @@ public:
 
 			}
 			else if (choise == 4 && foursMastedShip > 0) {
-				//tu kod jak dodawac 4 masztowiec
-
+				this->insertFourMastedShip(*playerBoard);
+				foursMastedShip = 0;
+				ship = ship - 1;
 			}
 		} while (ship != 0);
-
+		cout << "GZ! Dodales wszystkie statki!\n";
 
 
 

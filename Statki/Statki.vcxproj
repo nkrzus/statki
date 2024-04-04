@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board2.cpp" />
+    <ClCompile Include="Shot.cpp" />
     <ClCompile Include="Statki.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board2.h" />
+    <ClInclude Include="Shot.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
