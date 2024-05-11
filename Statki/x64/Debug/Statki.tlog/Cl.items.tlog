@@ -1,3 +1,7 @@
-C:\dev\statki\Statki\Board2.cpp;C:\dev\statki\Statki\x64\Debug\Board2.obj
+C:\dev\statki\Statki\Board.cpp;C:\dev\statki\Statki\x64\Debug\Board.obj
+C:\dev\statki\Statki\ComputerPlayer.cpp;C:\dev\statki\Statki\x64\Debug\ComputerPlayer.obj
+C:\dev\statki\Statki\HumanPlayer.cpp;C:\dev\statki\Statki\x64\Debug\HumanPlayer.obj
+C:\dev\statki\Statki\Nieuzytefunkcje.cpp;C:\dev\statki\Statki\x64\Debug\Nieuzytefunkcje.obj
+C:\dev\statki\Statki\Player.cpp;C:\dev\statki\Statki\x64\Debug\Player.obj
 C:\dev\statki\Statki\Shot.cpp;C:\dev\statki\Statki\x64\Debug\Shot.obj
 C:\dev\statki\Statki\Statki.cpp;C:\dev\statki\Statki\x64\Debug\Statki.obj

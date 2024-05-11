@@ -1,16 +1,14 @@
 #include "Shot.h"
-#include <string>
-#include <iostream>
-
-using namespace std;
 
 Shot::Shot(string UnvalidShot) : toValid(UnvalidShot) {
-	this->divideShotID();
-	this->convertShotID();
+	divideShotID();
+	convertShotID();
 };
 
+Shot::Shot(int columns, int rows):columns(columns) ,rows(rows){};
 
 void Shot::divideShotID() {
+
 
 	if (toValid.length() == 2) {
 		this->strColumns = toValid[0];
@@ -21,10 +19,11 @@ void Shot::divideShotID() {
 		this->rows = 0;
 	}
 	else {
-		cout << "Podales niepoprawna lokalizacje. Sprobuj jeszcze raz\n";
+		return;
 	}
-}
 
+	
+}
 void Shot::convertShotID() {
 	switch (strColumns) {
 	case 'A': columns = 0;

@@ -1,7 +1,5 @@
-﻿  Board2.cpp
-  Shot.cpp
-  Statki.cpp
+﻿  HumanPlayer.cpp
+  Player.cpp
   Generating Code...
-C:\dev\statki\Statki\Statki.cpp(284,1): warning C4715: 'Board::validateShotsForTriplet': not all control paths return a value
-C:\dev\statki\Statki\Statki.cpp(297,1): warning C4715: 'Board::validateShotsForQuartet': not all control paths return a value
+C:\dev\statki\Statki\Player.cpp(55,1): warning C4715: 'Player::validateShot': not all control paths return a value
   Statki.vcxproj -> C:\dev\statki\x64\Debug\Statki.exe
