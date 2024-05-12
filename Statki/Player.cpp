@@ -81,6 +81,25 @@ bool Player::getElementFromBoard(Shot x) {
 		return false;
 	}
 }
+
+bool Player::areYouWinner(Board myPlayBoard, Board myOponentBoard) {
+	int allXOnBoard = 20;
+
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10;j++) {
+			if (myOponentBoard.board[i][j] == 'X' && myPlayBoard.board[i][j] == 'X')
+				allXOnBoard -= 1;
+			else continue;
+		}	
+	}
+
+	if (allXOnBoard == 0) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 Player::Player(string playerName) : name(playerName) {
 };
 

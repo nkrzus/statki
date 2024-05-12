@@ -25,7 +25,6 @@ protected:
 
 	virtual void guessWhereTheShipsAre()=0;
 
-	string getName();
 
 	bool isShipHere(Shot x, Board board);
 
@@ -36,6 +35,8 @@ public:
 	Board getBoard();
 	bool getElementFromBoard(Shot x);
 	bool validationOfShot(Shot x);
+	bool areYouWinner(Board myPlayBoard, Board myOponentBoard);
+	string getName();
 
 	Player(string playerName);
 	

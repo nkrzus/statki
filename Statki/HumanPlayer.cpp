@@ -131,10 +131,7 @@ void HumanPlayer::guessWhereTheShipsAre() {
 		updatePlayBoardFail(first);
 		cout << "Pudlo\n";
 	}
-
-	cout << "Plansza gry:\n";
 	displayBoard(playBoard);
-	cout << "Ruch przeciwnika!\n";
 }
 
 HumanPlayer::HumanPlayer(string playerName) :Player(playerName) {
