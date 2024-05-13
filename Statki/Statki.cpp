@@ -11,18 +11,6 @@
 #include "Statki.h"
 using namespace std;
 
-class Ship {
-private:
-	string name;
-	int quantity;
-	int size;
-	bool isFallen;
-
-public:
-	//jakas funkcja sprawdzajaca statki
-};
-
-
 void whoIsTheWinner(bool areHumanPlayerWin, HumanPlayer& player1, bool areComputerPlayerWin, ComputerPlayer& player2)
 {
 	if (areHumanPlayerWin) {

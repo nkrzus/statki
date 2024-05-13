@@ -117,10 +117,14 @@ void HumanPlayer::addShips() {
 }
 
 void HumanPlayer::guessWhereTheShipsAre() {
-
-	cout << getName() << " - Twoj ruch. Strzelaj!\n";
+	bool isValid = false;
 	string shot;
-	cin >> shot;
+	do {
+		cout << getName() << " - Twoj ruch. Strzelaj!\n";
+		cin >> shot;
+		Shot first(shot);
+		isValid = validationOfShot(first);
+	} while (!isValid);
 	Shot first(shot);
 	system("cls");
 	if (isShipHere(first, oponentBoard)) {

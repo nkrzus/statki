@@ -10,7 +10,7 @@ void Player::displayBoard(Board board) {
 			cout << " " << i + 1 << " ";
 		};
 		for (int j = 0; j < 10; j++) {
-			cout << board.board[i][j] << " ";
+			cout << board.boardd[i][j] << " ";
 		}
 		cout << endl;
 	};
@@ -26,15 +26,15 @@ bool Player::validationOfShot(Shot x) {
 	}
 }
 void Player::updateBoard(Shot x) {
-	this->board.board[x.rows][x.columns] = 'X';
+	this->board.boardd[x.rows][x.columns] = 'X';
 }
 
 void Player::updatePlayBoard(Shot x) {
-	this->playBoard.board[x.rows][x.columns] = 'X';
+	this->playBoard.boardd[x.rows][x.columns] = 'X';
 }
 
 void Player::updatePlayBoardFail(Shot x) {
-	this->playBoard.board[x.rows][x.columns] = '.';
+	this->playBoard.boardd[x.rows][x.columns] = '.';
 }
 
 bool Player::validateShot(Shot x, Board board) {
@@ -42,10 +42,10 @@ bool Player::validateShot(Shot x, Board board) {
 		return false;
 	}
 	else {
-		if (board.board[x.rows][x.columns] != '~') {
+		if (board.boardd[x.rows][x.columns] != '~') {
 			return false;
 		}
-		else if ((board.board[x.rows][x.columns] == '~')) {
+		else if ((board.boardd[x.rows][x.columns] == '~')) {
 			return true;
 		}
 	}
@@ -87,7 +87,7 @@ bool Player::areYouWinner(Board myPlayBoard, Board myOponentBoard) {
 
 	for (int i = 0; i < 10; i++) {
 		for (int j = 0; j < 10;j++) {
-			if (myOponentBoard.board[i][j] == 'X' && myPlayBoard.board[i][j] == 'X')
+			if (myOponentBoard.boardd[i][j] == 'X' && myPlayBoard.boardd[i][j] == 'X')
 				allXOnBoard -= 1;
 			else continue;
 		}	

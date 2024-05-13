@@ -21,8 +21,6 @@ void Shot::divideShotID() {
 	else {
 		return;
 	}
-
-	
 }
 void Shot::convertShotID() {
 	switch (strColumns) {

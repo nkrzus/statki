@@ -5,7 +5,6 @@
 #include <string>
 #include <iostream>
 #include "Board.h"
-#include <vector>
 using namespace std;
 
 class ComputerPlayer :
