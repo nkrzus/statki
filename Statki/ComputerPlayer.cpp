@@ -65,8 +65,8 @@ void ComputerPlayer:: addShips() {
 	for (int i = 0; i < 4; ++i) {
 		addShip(1);
 	}
-	cout << "Udalo sie stworzyc tablice dla komputera:\n";
-	displayBoard(board);
+	//cout << "Udalo sie stworzyc tablice dla komputera:\n";
+	//displayBoard(board);
 }
 
 void ComputerPlayer::guessWhereTheShipsAre() {

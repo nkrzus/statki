@@ -1,9 +1,4 @@
-﻿  Board.cpp
-  ComputerPlayer.cpp
+﻿  ComputerPlayer.cpp
   HumanPlayer.cpp
-  Player.cpp
-  Statki.cpp
-C:\dev\statki\Statki\Statki.cpp(62,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Generating Code...
-C:\dev\statki\Statki\Player.cpp(55,1): warning C4715: 'Player::validateShot': not all control paths return a value
   Statki.vcxproj -> C:\dev\statki\x64\Debug\Statki.exe

@@ -130,7 +130,6 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="ComputerPlayer.cpp" />
     <ClCompile Include="HumanPlayer.cpp" />
-    <ClCompile Include="Nieuzytefunkcje.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shot.cpp" />
     <ClCompile Include="Statki.cpp" />

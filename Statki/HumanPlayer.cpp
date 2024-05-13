@@ -7,7 +7,7 @@ void HumanPlayer::addShip(int size) {
 	bool placed = false;
 	while (!placed) {
 		string choise;
-		bool vertical;
+		bool vertical=false;
 
 		if (size == 1) {
 			vertical = true;
