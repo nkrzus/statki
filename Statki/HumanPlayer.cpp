@@ -6,7 +6,7 @@ void HumanPlayer::addShip(int size) {
 
 	bool placed = false;
 	while (!placed) {
-		string choise;
+		char choise;
 		bool vertical=false;
 
 		if (size == 1) {
@@ -18,16 +18,17 @@ void HumanPlayer::addShip(int size) {
 				displayBoard(board);
 				cout << "Podaj polozenie statku H - pionowo, V - poziomo\n";
 				cin >> choise;
-				if (choise == "V") {
+				choise = toupper(choise);
+				if (choise == 'V') {
 					vertical = true;
 				}
-				else if (choise == "H") {
+				else if (choise == 'H') {
 					vertical = false;
 				}
 				else {
 					cout << "Niepoprawny wybor\n";
 				}
-			} while ((choise != "H") && (choise != "V"));
+			} while ((choise != 'H') && (choise != 'V'));
 			system("cls");
 		};
 

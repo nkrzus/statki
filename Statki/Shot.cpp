@@ -12,10 +12,12 @@ void Shot::divideShotID() {
 
 	if (toValid.length() == 2) {
 		this->strColumns = toValid[0];
+		strColumns = toupper(strColumns);
 		this->strRows = toValid[1];
 	}
 	else if (toValid.length() == 3) {
 		this->strColumns = toValid[0];
+		strColumns = toupper(strColumns);
 		this->rows = 0;
 	}
 	else {
